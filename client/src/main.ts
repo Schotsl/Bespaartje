@@ -1,9 +1,9 @@
 import { apiFetch } from "./api";
 
 async function verifyToken() {
-  const response = await apiFetch("/auth/verify");
-
   const menu = document.getElementById("sidemenu")!;
+
+  const response = await apiFetch("/auth/verify");
 
   if (!response.ok) {
     menu.appendChild(createMenuItem("Login", "/login"));

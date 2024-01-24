@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import jwt from "jsonwebtoken";
-import mysql, { RowDataPacket } from "mysql2/promise";
+import mysql, { ResultSetHeader, RowDataPacket } from "mysql2/promise";
 import { Connection } from "mysql2/promise";
 import { compare, hash } from "bcrypt";
 
@@ -11,6 +11,21 @@ interface User extends RowDataPacket {
   email: string;
   password: string;
   name: string;
+}
+
+interface UitjeUser extends RowDataPacket {
+  id: number;
+  uitje_id: number;
+  user_id: number;
+  amount: string;
+  amount_paid: string;
+}
+
+interface Uitje extends RowDataPacket {
+  id: number;
+  title: string;
+  owner_id: number;
+  users: User[];
 }
 
 require("dotenv").config();
@@ -98,12 +113,12 @@ async function getUser(id: number) {
 async function getUitje(id: number) {
   const connection = await getConnection();
 
-  const [uitje] = await connection.query(
+  const [uitje] = await connection.query<Uitje[]>(
     "SELECT id, title, owner_id FROM uitje WHERE id = ?",
     [id],
   );
 
-  const [users] = await connection.query(
+  const [users] = await connection.query<UitjeUser[]>(
     "SELECT id, uitje_id, user_id, amount, amount_paid FROM uitje_user WHERE uitje_id = ?",
     [uitje[0].id],
   );
@@ -132,7 +147,9 @@ app.get("/uitje", async (request, response) => {
 
   // Fetch the uitjes from the database
   const connection = await getConnection();
-  const [ids] = await connection.query("SELECT id FROM uitje");
+  const [ids] = await connection.query<Pick<Uitje, "constructor" | "id">[]>(
+    "SELECT id FROM uitje",
+  );
 
   // Fetch the full uitjes from the database
   const uitjesPromises = ids.map((uitje) => getUitje(uitje.id));
@@ -146,11 +163,14 @@ app.post("/uitje", async (request, response) => {
   const user = 1;
 
   // Fetch title and users from the request
-  const { title, users } = request.body;
+  const { title, users } = request.body as {
+    title: string;
+    users: Array<{ user_id: number; amount: number }>;
+  };
 
   const connection = await getConnection();
 
-  const [results] = await connection.query(
+  const [results] = await connection.query<ResultSetHeader>(
     "INSERT INTO uitje (title,owner_id) VALUES (?, ?)",
     [title, user],
   );
