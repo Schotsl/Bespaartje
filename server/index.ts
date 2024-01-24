@@ -18,7 +18,10 @@ require("dotenv").config();
 let globalConnection: Connection | undefined;
 
 async function getConnection() {
-  if (globalConnection) return globalConnection;
+  if (globalConnection) {
+    await globalConnection.connect();
+    return globalConnection;
+  }
 
   globalConnection = await mysql.createConnection({
     database: process.env.DATABASE_NAME,
