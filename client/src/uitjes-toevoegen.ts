@@ -77,12 +77,9 @@ searchElement.addEventListener("keyup", function () {
 
 formElement.addEventListener("submit", async (event) => {
   event.preventDefault();
+
   // Read title from event target
   const title = (event.target as HTMLFormElement).title.value;
-  console.log({
-    title,
-    users,
-  });
   const response = await apiFetch("/uitje", {
     method: "POST",
     headers: {

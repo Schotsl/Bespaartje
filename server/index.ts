@@ -31,6 +31,10 @@ async function getConnection() {
     port: 3366,
   });
 
+  setInterval(function () {
+    globalConnection.query("SELECT 1");
+  }, 5000);
+
   return globalConnection;
 }
 

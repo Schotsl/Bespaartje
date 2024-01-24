@@ -6,8 +6,6 @@ async function loadUitjes() {
   const response = await apiFetch("/uitje");
   const uitjes = await response.json();
 
-  console.log(uitjes);
-
   const ul = document.getElementById("uitjes-list")!;
 
   for (const uitje of uitjes) {

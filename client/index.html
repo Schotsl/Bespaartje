@@ -1,197 +1,193 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>DOKKIE/BESPAARTJE</title>
-    <link rel="stylesheet" href="src/style.css" />
-  </head>
-  <script
-    src="https://kit.fontawesome.com/da0b383950.js"
-    crossorigin="anonymous"
-  >
-    window.onload = function() {
-      var zoomFactor = 1.4;
 
-      document.body.style.zoom = zoomFactor;};
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>DOKKIE/BESPAARTJE</title>
+
+  <link rel="stylesheet" href="src/style.css" />
+</head>
+<script src="https://kit.fontawesome.com/da0b383950.js" crossorigin="anonymous">
+  window.onload = function () {
+    var zoomFactor = 1.4;
+
+    document.body.style.zoom = zoomFactor;
+  };
+</script>
+
+<body>
+  <div id="header">
+    <div class="container">
+      <nav>
+        <img src="https://cdn.pixabay.com/animation/2023/06/08/15/03/15-03-45-927_512.gif" class="logo" />
+        <ul id="sidemenu">
+          <li><a href="/">Home</a></li>
+          <li><a href="/login">Login</a></li>
+          <li><a href="/signup">Sign up</a></li>
+          <i class="fa-solid fa-xmark" onclick="closemenu()"></i>
+        </ul>
+        <i class="fa-solid fa-bars" onclick="openmenu()"></i>
+      </nav>
+      <div class="header-text">
+        <p>HBO ICT Student</p>
+        <h1>
+          Welcome to, <span>Bespaartje</span><br />
+          Get your money easily !
+        </h1>
+      </div>
+    </div>
+  </div>
+
+  <!-------------About----------------->
+  <div id="about">
+    <div class="container">
+      <div class="row">
+        <div class="about-col-1">
+          <img src="" />
+        </div>
+        <div class="about-col-2">
+          <h1 class="sub-title">About Me</h1>
+          <p>Hier komt lore over mezelf nog</p>
+
+          <div class="tab-titles">
+            <p class="tab-links active-link" onclick="opentab('skills')">
+              <b>Skills</b>
+            </p>
+            <p class="tab-links" onclick="opentab('experience')">
+              <b>Experience</b>
+            </p>
+            <p class="tab-links" onclick="opentab('education')">
+              <b>Education</b>
+            </p>
+          </div>
+          <div class="tab-contents active-tab" id="skills">
+            <ul>
+              <li><span>Programming</span><br />Typescript programming</li>
+              <li><span>Flexible</span><br />Very flexible to work with</li>
+              <li>
+                <span>Team player</span><br />Worked with a lot of teams
+              </li>
+            </ul>
+          </div>
+          <div class="tab-contents" id="experience">
+            <ul>
+              <li>
+                <span>2019 - 2020</span><br />Stage Iciber data anlyse and
+                PowerBI
+              </li>
+              <li><span>2021 - 2021</span><br />Stage Wortell Game design</li>
+            </ul>
+          </div>
+          <div class="tab-contents" id="education">
+            <ul>
+              <li><span>2013 - 2018</span><br />MAVO Kaj Munk College</li>
+              <li>
+                <span>2018 - 2021</span><br />MBO ICT Student Nova College
+                Hoofddorp
+              </li>
+              <li>
+                <span>2023 - Current</span><br />HBO ICT Student Hogeschool
+                van Amsterdam
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-------------Services----------------->
+  <div id="services">
+    <div class="container">
+      <h1 class="sub-title">About us</h1>
+      <div class="services-list">
+        <div>
+          <i class="fa-solid fa-code"></i>
+          <h2>Spending</h2>
+          <p>Hier komt nog text</p>
+          <a href="#">Learn more</a>
+        </div>
+        <div>
+          <i class="fa-solid fa-crop"></i>
+          <h2>Balance</h2>
+          <p>Hier komt ook nog text</p>
+          <a href="#">Learn more</a>
+        </div>
+        <div>
+          <i class="fa-brands fa-app-store"></i>
+          <h2>Trips</h2>
+          <p>All the trips you went on with friends</p>
+          <a href="#">Learn more</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-------Portfolio------>
+  <div id="portfolio">
+    <div class="container">
+      <h1 class="sub-title">Coming soon</h1>
+      <div class="work-list">
+        <div class="work">
+          <img src="" />
+          <div class="layer">
+            <h3>Social Media App</h3>
+            <p>Desc.</p>
+            <a href="#"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+          </div>
+        </div>
+        <div class="work">
+          <img src="" />
+          <div class="layer">
+            <h3>Music App</h3>
+            <p>Desc.</p>
+            <a href="#"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+          </div>
+        </div>
+        <div class="work">
+          <img src="" />
+          <div class="layer">
+            <h3>Online shopping App</h3>
+            <p>Desc.</p>
+            <a href="#"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+          </div>
+        </div>
+      </div>
+      <a href="$" class="btn">See more</a>
+    </div>
+  </div>
+
+  <script>
+    var tablinks = document.getElementsByClassName("tab-links");
+    var tabcontents = document.getElementsByClassName("tab-contents");
+    function opentab(tabname) {
+      for (tablink of tablinks) {
+        tablink.classList.remove("active-link");
+      }
+      for (tabcontent of tabcontents) {
+        tabcontent.classList.remove("active-tab");
+      }
+      event.currentTarget.classList.add("active-link");
+      document.getElementById(tabname).classList.add("active-tab");
+    }
   </script>
-  <body>
-    <div id="header">
-      <div class="container">
-        <nav>
-          <img
-            src="https://cdn.pixabay.com/animation/2023/06/08/15/03/15-03-45-927_512.gif"
-            class="logo"
-          />
-          <ul id="sidemenu">
-            <li><a href="/">Home</a></li>
-            <li><a href="/login">Login</a></li>
-            <li><a href="/signup">Sign up</a></li>
-            <i class="fa-solid fa-xmark" onclick="closemenu()"></i>
-          </ul>
-          <i class="fa-solid fa-bars" onclick="openmenu()"></i>
-        </nav>
-        <div class="header-text">
-          <p>HBO ICT Student</p>
-          <h1>
-            Welcome to, <span>Bespaartje</span><br />
-            Get your money easily !
-          </h1>
-        </div>
-      </div>
-    </div>
 
-    <!-------------About----------------->
-    <div id="about">
-      <div class="container">
-        <div class="row">
-          <div class="about-col-1">
-            <img src="" />
-          </div>
-          <div class="about-col-2">
-            <h1 class="sub-title">About Me</h1>
-            <p>Hier komt lore over mezelf nog</p>
+  <script>
+    var sidemenu = document.getElementById("sidemenu");
 
-            <div class="tab-titles">
-              <p class="tab-links active-link" onclick="opentab('skills')">
-                <b>Skills</b>
-              </p>
-              <p class="tab-links" onclick="opentab('experience')">
-                <b>Experience</b>
-              </p>
-              <p class="tab-links" onclick="opentab('education')">
-                <b>Education</b>
-              </p>
-            </div>
-            <div class="tab-contents active-tab" id="skills">
-              <ul>
-                <li><span>Programming</span><br />Typescript programming</li>
-                <li><span>Flexible</span><br />Very flexible to work with</li>
-                <li>
-                  <span>Team player</span><br />Worked with a lot of teams
-                </li>
-              </ul>
-            </div>
-            <div class="tab-contents" id="experience">
-              <ul>
-                <li>
-                  <span>2019 - 2020</span><br />Stage Iciber data anlyse and
-                  PowerBI
-                </li>
-                <li><span>2021 - 2021</span><br />Stage Wortell Game design</li>
-              </ul>
-            </div>
-            <div class="tab-contents" id="education">
-              <ul>
-                <li><span>2013 - 2018</span><br />MAVO Kaj Munk College</li>
-                <li>
-                  <span>2018 - 2021</span><br />MBO ICT Student Nova College
-                  Hoofddorp
-                </li>
-                <li>
-                  <span>2023 - Current</span><br />HBO ICT Student Hogeschool
-                  van Amsterdam
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    function openmenu() {
+      sidemenu.style.right = "0";
+    }
+    function closemenu() {
+      sidemenu.style.right = "-200px";
+    }
+  </script>
 
-    <!-------------Services----------------->
-    <div id="services">
-      <div class="container">
-        <h1 class="sub-title">About us</h1>
-        <div class="services-list">
-          <div>
-            <i class="fa-solid fa-code"></i>
-            <h2>Spending</h2>
-            <p>Hier komt nog text</p>
-            <a href="#">Learn more</a>
-          </div>
-          <div>
-            <i class="fa-solid fa-crop"></i>
-            <h2>Balance</h2>
-            <p>Hier komt ook nog text</p>
-            <a href="#">Learn more</a>
-          </div>
-          <div>
-            <i class="fa-brands fa-app-store"></i>
-            <h2>Trips</h2>
-            <p>All the trips you went on with friends</p>
-            <a href="#">Learn more</a>
-          </div>
-        </div>
-      </div>
-    </div>
+  <script type="module" src="/src/main.ts"></script>
+  <script type="module" src="/src/navigation.ts"></script>
+</body>
 
-    <!-------Portfolio------>
-    <div id="portfolio">
-      <div class="container">
-        <h1 class="sub-title">Coming soon</h1>
-        <div class="work-list">
-          <div class="work">
-            <img src="" />
-            <div class="layer">
-              <h3>Social Media App</h3>
-              <p>Desc.</p>
-              <a href="#"
-                ><i class="fa-solid fa-arrow-up-right-from-square"></i
-              ></a>
-            </div>
-          </div>
-          <div class="work">
-            <img src="" />
-            <div class="layer">
-              <h3>Music App</h3>
-              <p>Desc.</p>
-              <a href="#"
-                ><i class="fa-solid fa-arrow-up-right-from-square"></i
-              ></a>
-            </div>
-          </div>
-          <div class="work">
-            <img src="" />
-            <div class="layer">
-              <h3>Online shopping App</h3>
-              <p>Desc.</p>
-              <a href="#"
-                ><i class="fa-solid fa-arrow-up-right-from-square"></i
-              ></a>
-            </div>
-          </div>
-        </div>
-        <a href="$" class="btn">See more</a>
-      </div>
-    </div>
-
-    <script>
-      var tablinks = document.getElementsByClassName("tab-links");
-      var tabcontents = document.getElementsByClassName("tab-contents");
-      function opentab(tabname) {
-        for (tablink of tablinks) {
-          tablink.classList.remove("active-link");
-        }
-        for (tabcontent of tabcontents) {
-          tabcontent.classList.remove("active-tab");
-        }
-        event.currentTarget.classList.add("active-link");
-        document.getElementById(tabname).classList.add("active-tab");
-      }
-    </script>
-
-    <script>
-      var sidemenu = document.getElementById("sidemenu");
-
-      function openmenu() {
-        sidemenu.style.right = "0";
-      }
-      function closemenu() {
-        sidemenu.style.right = "-200px";
-      }
-    </script>
-    <script type="module" src="/src/main.ts"></script>
-  </body>
 </html>
