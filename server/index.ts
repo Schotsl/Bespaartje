@@ -2,8 +2,16 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import jwt from "jsonwebtoken";
-import mysql from "mysql2/promise";
+import mysql, { RowDataPacket } from "mysql2/promise";
 import { Connection } from "mysql2/promise";
+import { hash } from "bcrypt";
+
+interface User extends RowDataPacket {
+  id: number;
+  email: string;
+  password: string;
+  name: string;
+}
 
 require("dotenv").config();
 
@@ -29,36 +37,39 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.get("/", async (request, response) => {
-  const connection = await getConnection();
-  const [results] = await connection.query("SELECT * FROM user");
-
-  return response.json(results);
+  return response.json({
+    message: "Hello world",
+  });
 });
 
 app.post("/auth/login", async (request, response) => {
-  const connection = await getConnection();
-  const [results] = await connection.query("SELECT * FROM user");
-
-  return response.json(results);
-
   const { email, password } = request.body;
 
-  if (typeof email !== "string" || typeof password !== "string") {
-    response.status(400).json({ message: "Invalid request body" });
-    return;
+  const hashedPassword = await hash(password, 10);
+
+  const connection = await getConnection();
+  const [results] = await connection.query<User[]>(
+    "SELECT * FROM user WHERE email = ? AND password = ? LIMIT 1",
+    [email, hashedPassword],
+  );
+
+  const user = results[0];
+
+  if (!user) {
+    return response.status(401).json({ message: "Invalid email or password" });
   }
 
-  // Query database
-
-  const token = jwt.sign({ userId: 1 }, process.env.SECRET!, {
+  const token = jwt.sign({ userId: user.id }, process.env.SECRET!, {
     expiresIn: "7d",
   });
 
-  response.cookie("token", token, {
-    httpOnly: true,
-    sameSite: true,
-    secure: true,
-  });
+  response
+    .cookie("token", token, {
+      httpOnly: true,
+      sameSite: true,
+      secure: true,
+    })
+    .send();
 });
 
 async function getUser(id: number) {
@@ -147,7 +158,17 @@ app.post("/uitje", async (request, response) => {
   return response.json(uitjeMapped);
 });
 
-app.post("/auth/signup", (request, response) => {});
+app.post("/auth/signup", async (request, response) => {
+  const { email, password, name } = request.body;
+
+  const hashedPassword = await hash(password, 10);
+
+  const connection = await getConnection();
+  const [results] = await connection.query(
+    "INSERT INTO user (email, password, name) VALUES (?, ?, ?)",
+    [email, hashedPassword, name],
+  );
+});
 
 app.listen(3000, () => {
   console.log("Listen on the port 3000...");
