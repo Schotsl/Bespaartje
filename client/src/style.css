@@ -57,12 +57,16 @@ li {
   display: grid;
   margin-top: 2rem;
   grid-template-columns: repeat(1, 1fr);
+}
 
-  @media (min-width: 1200px) {
+@media (min-width: 1200px) {
+  #uitjes-list {
     grid-template-columns: repeat(2, 1fr);
   }
+}
 
-  @media (min-width: 1800px) {
+@media (min-width: 1800px) {
+  #uitjes-list {
     grid-template-columns: repeat(3, 1fr);
   }
 }
@@ -73,7 +77,9 @@ li {
   font-size: 24px;
   font-weight: 300;
   border-radius: 2.5rem;
-  transition: background 0.5s, transform 0.5s;
+  transition:
+    background 0.5s,
+    transform 0.5s;
 
   gap: 1.5rem;
   display: grid;
