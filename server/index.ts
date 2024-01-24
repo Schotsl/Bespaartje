@@ -31,6 +31,17 @@ async function getConnection() {
   return globalConnection;
 }
 
+function assertAuthorization(bearer: string): { userId: number } {
+  try {
+    const token = bearer.split(" ")[1];
+    jwt.verify(token, process.env.SECRET!);
+    const decodedToken = jwt.decode(token);
+    return decodedToken as { userId: number };
+  } catch (error) {
+    throw new Error("Invalid token");
+  }
+}
+
 const app = express();
 
 app.use(cors());
@@ -49,7 +60,7 @@ app.post("/auth/login", async (request, response) => {
   const connection = await getConnection();
   const [results] = await connection.query<User[]>(
     "SELECT * FROM user WHERE email = ? LIMIT 1",
-    [email]
+    [email],
   );
 
   const user = results[0];
@@ -76,7 +87,7 @@ async function getUser(id: number) {
 
   const [users] = await connection.query<User[]>(
     "SELECT id, email, name FROM user WHERE id = ?",
-    [id]
+    [id],
   );
 
   return users[0];
@@ -87,12 +98,12 @@ async function getUitje(id: number) {
 
   const [uitje] = await connection.query(
     "SELECT id, title, owner_id FROM uitje WHERE id = ?",
-    [id]
+    [id],
   );
 
   const [users] = await connection.query(
     "SELECT id, uitje_id, user_id, amount, amount_paid FROM uitje_user WHERE uitje_id = ?",
-    [uitje[0].id]
+    [uitje[0].id],
   );
 
   const usersPromises = users.map((user) => getUser(user.user_id));
@@ -112,10 +123,10 @@ async function getUitje(id: number) {
 }
 
 app.get("/uitje", async (request, response) => {
-  const { token } = request.cookies;
-
+  const { userId } = assertAuthorization(
+    request.headers.authorization as string,
+  );
   // ENSURE AUTHENTICATION
-  const user = 1;
 
   // Fetch the uitjes from the database
   const connection = await getConnection();
@@ -139,7 +150,7 @@ app.post("/uitje", async (request, response) => {
 
   const [results] = await connection.query(
     "INSERT INTO uitje (title,owner_id) VALUES (?, ?)",
-    [title, user]
+    [title, user],
   );
 
   // Insert the uitjes_users into the database where every user is a new row
@@ -148,7 +159,7 @@ app.post("/uitje", async (request, response) => {
 
   await connection.query(
     "INSERT INTO uitje_user (uitje_id, user_id, amount) VALUES ?",
-    [values]
+    [values],
   );
 
   // Return the uitje
@@ -165,7 +176,7 @@ app.post("/auth/signup", async (request, response) => {
   const connection = await getConnection();
   await connection.query(
     "INSERT INTO user (email, password, name) VALUES (?, ?, ?)",
-    [email, hashedPassword, name]
+    [email, hashedPassword, name],
   );
 
   response.status(200).send();
