@@ -156,7 +156,6 @@ app.get("/uitje", async (request, response) => {
   const { userId } = assertAuthorization(
     request.headers.authorization as string
   );
-  // ENSURE AUTHENTICATION
 
   // Fetch the uitjes from the database
   const connection = await getConnection();
@@ -170,8 +169,9 @@ app.get("/uitje", async (request, response) => {
 });
 
 app.post("/uitje", async (request, response) => {
-  // ENSURE AUTHENTICATION
-  const user = 1;
+  const { userId } = assertAuthorization(
+    request.headers.authorization as string
+  );
 
   // Fetch title and users from the request
   const { title, users } = request.body;
@@ -180,7 +180,7 @@ app.post("/uitje", async (request, response) => {
 
   const [results] = await connection.query(
     "INSERT INTO uitje (title,owner_id) VALUES (?, ?)",
-    [title, user]
+    [title, userId]
   );
 
   const uitje = results.insertId;
