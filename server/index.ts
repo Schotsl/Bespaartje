@@ -123,10 +123,10 @@ async function getUitje(id: number) {
 }
 
 app.get("/uitje", async (request, response) => {
-  const token = assertAuthorization(request.headers.Authorization as string);
-
+  const { userId } = assertAuthorization(
+    request.headers.authorization as string,
+  );
   // ENSURE AUTHENTICATION
-  const user = 1;
 
   // Fetch the uitjes from the database
   const connection = await getConnection();
