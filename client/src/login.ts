@@ -1,4 +1,4 @@
-import { apiFetch } from "./main";
+import { apiFetch } from "./api";
 
 document
   .getElementById("login-form")!
@@ -16,10 +16,6 @@ document
         password,
       }),
     });
-
-    if (!response.ok) {
-      return alert("Invalid email or password");
-    }
 
     const { token } = await response.json();
 

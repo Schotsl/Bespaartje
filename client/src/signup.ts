@@ -18,4 +18,12 @@ document
         password,
       }),
     });
+
+    if (!response.ok) {
+      return alert(
+        "Er is iets misgegaan tijdens het aanmelden. Probeer het later opnieuw.",
+      );
+    }
+
+    window.location.href = "/login.html";
   });
