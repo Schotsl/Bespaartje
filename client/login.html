@@ -2,22 +2,6 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="src/style.css" />
-    <title>Login</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.ts"></script>
-    <script type="module" src="/src/signup.ts"></script>
-  </body>
-</html>
-
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DOKKIE/BESPAARTJE</title>
@@ -50,15 +34,15 @@
         </nav>
         <div id="login">
           <div class="container">
-            <h1 class="sub-title">Meld je aan</h1>
-            <form id="signup-form" class="form">
-              <label for="name">Naam</label>
-              <input type="text" id="name" name="name" />
-              <label for="email">Email</label>
-              <input type="text" id="email" name="email" />
-              <label for="password">Password</label>
-              <input type="password" id="password" name="password" />
-              <button class="btn" type="submit">Aanmelden</button>
+            <h1 class="sub-title">Login</h1>
+            <form id="login-form" action="/login" class="form" method="post">
+              <label for="email">Email:</label>
+              <input type="text" id="email" name="email" required />
+
+              <label for="password">Password:</label>
+              <input type="password" id="password" name="password" required />
+
+              <button type="submit" class="btn">Login</button>
             </form>
           </div>
         </div>
@@ -91,6 +75,6 @@
       }
     </script>
     <script type="module" src="/src/main.ts"></script>
-    <script type="module" src="/src/signup.ts"></script>
+    <script type="module" src="/src/login.ts"></script>
   </body>
 </html>

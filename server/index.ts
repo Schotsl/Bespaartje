@@ -4,7 +4,7 @@ import cookieParser from "cookie-parser";
 import jwt from "jsonwebtoken";
 import mysql, { RowDataPacket } from "mysql2/promise";
 import { Connection } from "mysql2/promise";
-import { hash } from "bcrypt";
+import { compare, hash } from "bcrypt";
 
 interface User extends RowDataPacket {
   id: number;
@@ -46,17 +46,19 @@ app.get("/", async (request, response) => {
 app.post("/auth/login", async (request, response) => {
   const { email, password } = request.body;
 
-  const hashedPassword = await hash(password, 10);
-
   const connection = await getConnection();
   const [results] = await connection.query<User[]>(
-    "SELECT * FROM user WHERE email = ? AND password = ? LIMIT 1",
-    [email, hashedPassword]
+    "SELECT * FROM user WHERE email = ? LIMIT 1",
+    [email]
   );
 
   const user = results[0];
 
   if (!user) {
+    return response.status(401).json({ message: "Invalid email or password" });
+  }
+
+  if (!(await compare(password, user.password))) {
     return response.status(401).json({ message: "Invalid email or password" });
   }
 
@@ -72,7 +74,7 @@ app.post("/auth/login", async (request, response) => {
 async function getUser(id: number) {
   const connection = await getConnection();
 
-  const [users] = await connection.query(
+  const [users] = await connection.query<User[]>(
     "SELECT id, email, name FROM user WHERE id = ?",
     [id]
   );
@@ -161,10 +163,12 @@ app.post("/auth/signup", async (request, response) => {
   const hashedPassword = await hash(password, 10);
 
   const connection = await getConnection();
-  const [results] = await connection.query(
+  await connection.query(
     "INSERT INTO user (email, password, name) VALUES (?, ?, ?)",
     [email, hashedPassword, name]
   );
+
+  response.status(200).send();
 });
 
 // Allow cors
