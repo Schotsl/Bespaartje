@@ -63,13 +63,9 @@ app.post("/auth/login", async (request, response) => {
     expiresIn: "7d",
   });
 
-  response
-    .cookie("token", token, {
-      httpOnly: true,
-      sameSite: true,
-      secure: true,
-    })
-    .send();
+  response.json({
+    token,
+  });
 });
 
 app.post("/auth/signup", async (request, response) => {
