@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Uitjes</title>
+    <link rel="stylesheet" href="src/style.css" />
+
+</head>
+
+<body>
+    <div id="header">
+        <div class="container">
+            <nav>
+                <img src="https://cdn.pixabay.com/animation/2023/06/08/15/03/15-03-45-927_512.gif" class="logo" />
+                <ul id="sidemenu">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/uitjes">Uitjes</a></li>
+                    <i class="fa-solid fa-xmark" onclick="closemenu()"></i>
+                </ul>
+                <i class="fa-solid fa-bars" onclick="openmenu()"></i>
+            </nav>
+        </div>
+
+        <div class="container" id="uitjes-toevoegen">
+            <h1 class="sub-title">Uitje toevoegen</h1>
+
+            <form id="toevoegen-form" action="/toevoegen" class="form" method="post">
+                <div>
+                    <label for="title">Titel</label>
+                    <input type="text" id="title" name="title" required />
+                </div>
+
+
+                <div>
+                    <label for="email">Gebruikers zoeken</label>
+                    <input type="text" id="email-search" name="search" placeholder="Zoek naar de gebruiker..." />
+                </div>
+
+                <div>
+                    <label for="email">Gebruikers</label>
+
+                    <ul id="toevoegen-form-list">
+                    </ul>
+                </div>
+
+
+                <button type="submit" class="btn">Opslaan</button>
+            </form>
+        </div>
+
+    </div>
+
+    <script type="module" src="/src/uitjes-toevoegen.ts"></script>
+</body>
+
+</html>

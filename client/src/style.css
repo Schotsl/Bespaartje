@@ -26,7 +26,33 @@ li {
   margin-top: 2rem;
 }
 
-#uitjes-list {
+#uitjes .title-container {
+  width: 100%;
+  justify-content: space-between;
+  gap: 0.5rem;
+  display: flex;
+  align-items: center;
+}
+
+#uitjes .sub-button {
+  margin-top: 0.25rem;
+  background: #fff;
+  color: #000;
+  text-decoration: none;
+  padding: 0.75rem 1rem;
+  border-radius: 2.5rem;
+  font-weight: 600;
+  transition: background 0.5s, transform 0.5s;
+  display: block;
+}
+
+#uitjes .sub-button:hover {
+  background: #ff004f;
+  transform: translateY(-10px);
+  color: #fff;
+}
+
+#uitjes #uitjes-list {
   gap: 2rem;
   display: grid;
   margin-top: 2rem;
@@ -41,7 +67,7 @@ li {
   }
 }
 
-#uitjes-list > li {
+#uitjes #uitjes-list > li {
   background: #262626;
   padding: 1.5rem 2rem;
   font-size: 24px;
@@ -54,17 +80,17 @@ li {
   grid-template-columns: 1fr auto;
 }
 
-#uitjes-list > li h3 {
+#uitjes #uitjes-list > li h3 {
   opacity: 0.8;
 }
 
-#uitjes-list > li > ul {
+#uitjes #uitjes-list > li ul {
   gap: 0.75rem;
   display: flex;
   flex-wrap: wrap;
 }
 
-#uitjes-list > li> ul > li {
+#uitjes #uitjes-list > li ul li {
   background: #fff;
   color: #000;
   padding: 0.5rem 1rem;
@@ -73,26 +99,66 @@ li {
   font-weight: 600;
 }
 
-#uitjes-list > li> ul > li > span {
+#uitjes #uitjes-list > li ul li span {
   font-weight: 400;
   opacity: 0.8;
 }
 
-/* .services-list div h2 {
-  font-size: 30px;
-  font-weight: 500;
-  margin-bottom: 15px;
-}
-.services-list div a {
-  text-decoration: none;
-  color: #fff;
-  font-size: 12px;
-  margin-top: 20px;
-  display: inline-block;
-} */
-#uitjes-list > li:hover {
+#uitjes #uitjes-list > li:hover {
   background: #ff004f;
   transform: translateY(-10px);
+}
+
+#uitjes-toevoegen form{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 100%;
+  margin-top: 1.5rem;
+}
+
+#uitjes-toevoegen ul {
+  gap: 1rem;
+  display: flex; 
+  flex-direction: column;
+}
+
+#uitjes-toevoegen ul li {
+  display: grid;
+  gap: 2.5rem;
+  border-radius: 2.5rem;
+  align-items: center;
+  grid-template-columns: 1fr auto auto;
+  background: #262626;
+  padding: 0.75rem 1rem 0.75rem 1.5rem;
+}
+
+#uitjes-toevoegen ul li span {
+  font-size: 1.25rem;
+}
+
+#uitjes-toevoegen ul li button {
+  border: none;
+  background: #fff;
+  color: #000;
+  min-height: 42.5px;
+  text-decoration: none;
+  padding: 0.75rem 1rem;
+  border-radius: 2.5rem;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: background 0.5s, transform 0.5s;
+  display: block;
+}
+
+#uitjes-toevoegen ul li input {
+  margin: 0;
+} 
+
+#uitjes-toevoegen ul li button:hover {
+  background: #ff004f;
+  transform: translateY(-10px);
+  color: #fff;
 }
 
 #header {
