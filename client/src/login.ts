@@ -17,7 +17,15 @@ document
       }),
     });
 
+    if (!response.ok) {
+      return alert(
+        "Er is iets misgegaan tijdens het inloggen. Probeer het later opnieuw.",
+      );
+    }
+
     const { token } = await response.json();
 
     localStorage.setItem("token", token);
+
+    window.location.href = "/uitjes.html";
   });
