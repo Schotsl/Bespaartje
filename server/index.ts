@@ -173,8 +173,10 @@ app.get("/uitje", async (request, response) => {
 
   // Fetch the uitjes from the database
   const connection = await getConnection();
+  // Inner join on uitje_user to see if user is there and if so return the id
   const [ids] = await connection.query<Pick<Uitje, "constructor" | "id">[]>(
-    "SELECT id FROM uitje",
+    "SELECT id FROM uitje WHERE owner_id = ? UNION SELECT uitje_id FROM uitje_user WHERE user_id = ?",
+    [userId, userId]
   );
 
   // Fetch the full uitjes from the database
