@@ -41,7 +41,7 @@ li {
   }
 }
 
-#uitjes-list li {
+#uitjes-list > li {
   background: #262626;
   padding: 1.5rem 2rem;
   font-size: 24px;
@@ -49,13 +49,33 @@ li {
   border-radius: 2.5rem;
   transition: background 0.5s, transform 0.5s;
 
+  gap: 1.5rem;
   display: grid;
   grid-template-columns: 1fr auto;
 }
 
-#uitjes-list li h3 {
+#uitjes-list > li h3 {
   opacity: 0.8;
+}
 
+#uitjes-list > li > ul {
+  gap: 0.75rem;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#uitjes-list > li> ul > li {
+  background: #fff;
+  color: #000;
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+#uitjes-list > li> ul > li > span {
+  font-weight: 400;
+  opacity: 0.8;
 }
 
 /* .services-list div h2 {
@@ -70,7 +90,7 @@ li {
   margin-top: 20px;
   display: inline-block;
 } */
-#uitjes li:hover {
+#uitjes-list > li:hover {
   background: #ff004f;
   transform: translateY(-10px);
 }
