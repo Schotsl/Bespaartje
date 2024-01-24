@@ -31,12 +31,16 @@ li {
   display: grid;
   margin-top: 2rem;
   grid-template-columns: repeat(1, 1fr);
+}
 
-  @media (min-width: 1200px) {
+@media (min-width: 1200px) {
+  #uitjes-list {
     grid-template-columns: repeat(2, 1fr);
   }
+}
 
-  @media (min-width: 1800px) {
+@media (min-width: 1800px) {
+  #uitjes-list {
     grid-template-columns: repeat(3, 1fr);
   }
 }
@@ -47,7 +51,9 @@ li {
   font-size: 24px;
   font-weight: 300;
   border-radius: 2.5rem;
-  transition: background 0.5s, transform 0.5s;
+  transition:
+    background 0.5s,
+    transform 0.5s;
 
   gap: 1.5rem;
   display: grid;
@@ -64,7 +70,7 @@ li {
   flex-wrap: wrap;
 }
 
-#uitjes-list > li> ul > li {
+#uitjes-list > li > ul > li {
   background: #fff;
   color: #000;
   padding: 0.5rem 1rem;
@@ -73,7 +79,7 @@ li {
   font-weight: 600;
 }
 
-#uitjes-list > li> ul > li > span {
+#uitjes-list > li > ul > li > span {
   font-weight: 400;
   opacity: 0.8;
 }
