@@ -16,6 +16,7 @@ interface User extends RowDataPacket {
 require("dotenv").config();
 
 let globalConnection: Connection | undefined;
+
 async function getConnection() {
   if (globalConnection) return globalConnection;
 
@@ -50,7 +51,7 @@ app.post("/auth/login", async (request, response) => {
   const connection = await getConnection();
   const [results] = await connection.query<User[]>(
     "SELECT * FROM user WHERE email = ? AND password = ? LIMIT 1",
-    [email, hashedPassword],
+    [email, hashedPassword]
   );
 
   const user = results[0];
@@ -96,8 +97,8 @@ async function getUitje(id: number) {
   const usersLoaded = await Promise.all(usersPromises);
   const usersFull = usersLoaded.map((user, index) => ({
     ...user,
-    amount: users[index].amount,
-    amount_paid: users[index].amount_paid,
+    amount: parseFloat(users[index].amount),
+    amount_paid: parseFloat(users[index].amount_paid),
   }));
 
   return {
@@ -162,9 +163,11 @@ app.post("/auth/signup", async (request, response) => {
   const connection = await getConnection();
   const [results] = await connection.query(
     "INSERT INTO user (email, password, name) VALUES (?, ?, ?)",
-    [email, hashedPassword, name],
+    [email, hashedPassword, name]
   );
 });
+
+// Allow cors
 
 app.listen(3000, () => {
   console.log("Listen on the port 3000...");
