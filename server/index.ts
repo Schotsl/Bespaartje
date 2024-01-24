@@ -19,7 +19,6 @@ let globalConnection: Connection | undefined;
 
 async function getConnection() {
   if (globalConnection) {
-    await globalConnection.connect();
     return globalConnection;
   }
 
@@ -183,6 +182,15 @@ app.post("/auth/signup", async (request, response) => {
   );
 
   response.status(200).send();
+});
+
+app.get("/auth/verify", async (request, response) => {
+  try {
+    assertAuthorization(request.headers.authorization as string);
+    return response.status(200).send();
+  } catch (error) {
+    return response.status(401).send();
+  }
 });
 
 // Allow cors
